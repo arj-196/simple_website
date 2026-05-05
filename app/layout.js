@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Agent Launchpad",
+  title: "Agent Launchpad - 907c9a8",
   description: "A simple Next.js control surface for an autonomous coding agent."
 };
 
