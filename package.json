@@ -1,0 +1,17 @@
+{
+  "name": "autonomous-agent-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simple Next.js website for an autonomous coding agent control page.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^16.1.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "license": "MIT"
+}
