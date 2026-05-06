@@ -3,13 +3,20 @@ import RefreshPanel from "./refresh-panel";
 export default function HomePage() {
   return (
     <main className="shell">
+      <div className="paw-stream" aria-hidden="true">
+        <span>🐾</span>
+        <span>🐾</span>
+        <span>🐾</span>
+        <span>🐾</span>
+      </div>
+
       <section className="hero">
         <div className="hero-text">
-          <p className="eyebrow">Animated Kitty Control Deck</p>
-          <h1>Ship updates with pawsitive energy.</h1>
+          <p className="eyebrow">Animated Kitty B</p>
+          <h1>Build fast with bouncy kitty energy.</h1>
           <p className="intro">
-            The autonomous coding agent is now running in kitty mode: playful visuals,
-            quick status pings, and a launchpad built for fast front-end wins.
+            Welcome to theme B: floating paws, playful gradients, animated kitties,
+            and a control desk that feels fun while you ship production updates.
           </p>
         </div>
 
@@ -22,11 +29,11 @@ export default function HomePage() {
         <RefreshPanel />
 
         <article className="panel playful-panel">
-          <p className="panel-label">Kitty mission queue</p>
+          <p className="panel-label">Kitty mission queue B</p>
           <ul className="action-list">
-            <li>Chase layout bugs until they disappear</li>
-            <li>Pounce on stale copy and refresh it</li>
-            <li>Nudge polished changes toward production</li>
+            <li>Catch visual bugs with zoomie-level speed</li>
+            <li>Refresh stale sections with extra cat-titude</li>
+            <li>Push polished changes with pawsitive confidence</li>
           </ul>
         </article>
       </section>

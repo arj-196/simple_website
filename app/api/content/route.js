@@ -1,37 +1,37 @@
 const briefs = [
   {
-    label: "Deploy window open",
-    summary: "Agent is cleared to ship a front-end refinement.",
-    focus: "Landing page polish"
+    label: "Kitty sprint active",
+    summary: "Animated Kitty B is cleared for a playful UI release.",
+    focus: "Catwalk hero polish"
   },
   {
-    label: "Code review mode",
-    summary: "Agent is scanning for regressions before publishing.",
-    focus: "UI stability checks"
+    label: "Purr review mode",
+    summary: "Agent is scanning for regressions before the kitty parade.",
+    focus: "Animation stability checks"
   },
   {
-    label: "Fast patch ready",
-    summary: "Agent can apply a targeted fix and promote it.",
-    focus: "Production hotfix"
+    label: "Zoomie patch ready",
+    summary: "Agent can apply a targeted fix and ship with paw precision.",
+    focus: "Playful production hotfix"
   },
   {
-    label: "Iteration cycle active",
-    summary: "Agent is free to rewrite copy and push the next version.",
-    focus: "Content refresh"
+    label: "Pawprint iteration active",
+    summary: "Agent is tuning copy and visuals for kitty-grade delight.",
+    focus: "Theme B content refresh"
   },
   {
-    label: "Experiment queued",
-    summary: "Agent is preparing a new visual tweak for release.",
-    focus: "Hero section variant"
+    label: "Whisker experiment queued",
+    summary: "Agent is preparing a new animated tweak for release.",
+    focus: "Hero bounce variant"
   }
 ];
 
 const signals = [
-  "CI green",
-  "Diff validated",
-  "Push authorized",
-  "Preview synced",
-  "Checks pending"
+  "Litter box clean",
+  "Whiskers aligned",
+  "Pawprint validated",
+  "Catnip enabled",
+  "Treats pending"
 ];
 
 function randomItem(items) {
