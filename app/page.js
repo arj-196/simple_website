@@ -1,4 +1,5 @@
 import RefreshPanel from "./refresh-panel";
+import TicTacToe from "./tic-tac-toe";
 
 export default function HomePage() {
   return (
@@ -28,14 +29,7 @@ export default function HomePage() {
       <section className="grid">
         <RefreshPanel />
 
-        <article className="panel playful-panel">
-          <p className="panel-label">Kitty mission queue B</p>
-          <ul className="action-list">
-            <li>Catch visual bugs with zoomie-level speed</li>
-            <li>Refresh stale sections with extra cat-titude</li>
-            <li>Push polished changes with pawsitive confidence</li>
-          </ul>
-        </article>
+        <TicTacToe />
       </section>
     </main>
   );
