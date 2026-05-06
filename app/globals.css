@@ -1,13 +1,12 @@
 :root {
-  --bg: #fff8ec;
-  --ink: #2a1f2b;
-  --muted: #6b5d74;
-  --panel: rgba(255, 255, 255, 0.82);
-  --line: rgba(42, 31, 43, 0.14);
-  --accent: #ff7b54;
-  --accent-2: #2bb8a5;
-  --accent-soft: #ffe3bf;
-  --shadow: 0 22px 50px rgba(42, 31, 43, 0.18);
+  --ink: #2c2333;
+  --muted: #6d5a7d;
+  --panel: rgba(255, 255, 255, 0.78);
+  --line: rgba(44, 35, 51, 0.12);
+  --accent: #ff5f87;
+  --accent-2: #21a8b6;
+  --accent-3: #ffcf5c;
+  --shadow: 0 26px 60px rgba(44, 35, 51, 0.2);
 }
 
 * {
@@ -21,18 +20,59 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Trebuchet MS", "Avenir Next", sans-serif;
+  font-family: "Verdana", "Trebuchet MS", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 12% 18%, rgba(255, 123, 84, 0.26), transparent 30%),
-    radial-gradient(circle at 86% 76%, rgba(43, 184, 165, 0.2), transparent 34%),
-    linear-gradient(145deg, #fff9ef 0%, #fff1dd 48%, #ffe8da 100%);
+    radial-gradient(circle at 12% 12%, rgba(255, 95, 135, 0.3), transparent 34%),
+    radial-gradient(circle at 83% 22%, rgba(33, 168, 182, 0.24), transparent 30%),
+    radial-gradient(circle at 28% 84%, rgba(255, 207, 92, 0.25), transparent 28%),
+    linear-gradient(145deg, #fff6e7 0%, #ffeaf1 45%, #e8f9fb 100%);
+  background-size: cover;
 }
 
 .shell {
+  position: relative;
   width: min(1100px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 3rem 0 5rem;
+}
+
+.paw-stream {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.paw-stream span {
+  position: absolute;
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  opacity: 0.2;
+  animation: paw-float 8s linear infinite;
+}
+
+.paw-stream span:nth-child(1) {
+  left: 8%;
+  top: 14%;
+  animation-delay: 0s;
+}
+
+.paw-stream span:nth-child(2) {
+  left: 82%;
+  top: 28%;
+  animation-delay: 1.6s;
+}
+
+.paw-stream span:nth-child(3) {
+  left: 62%;
+  top: 74%;
+  animation-delay: 3.2s;
+}
+
+.paw-stream span:nth-child(4) {
+  left: 18%;
+  top: 78%;
+  animation-delay: 4.6s;
 }
 
 .hero {
@@ -85,8 +125,8 @@ h1 {
       -24deg,
       rgba(255, 255, 255, 0.72),
       rgba(255, 255, 255, 0.72) 12px,
-      rgba(255, 227, 191, 0.4) 12px,
-      rgba(255, 227, 191, 0.4) 24px
+      rgba(255, 95, 135, 0.14) 12px,
+      rgba(255, 95, 135, 0.14) 24px
     );
   box-shadow: var(--shadow);
   padding: 1rem;
@@ -100,9 +140,9 @@ h1 {
 .kitty {
   width: min(100%, 280px);
   border-radius: 24px;
-  border: 2px solid rgba(255, 123, 84, 0.45);
-  box-shadow: 0 15px 36px rgba(255, 123, 84, 0.25);
-  animation: kitty-bounce 2.8s ease-in-out infinite;
+  border: 2px solid rgba(255, 95, 135, 0.45);
+  box-shadow: 0 20px 40px rgba(255, 95, 135, 0.32);
+  animation: kitty-bounce 2.2s ease-in-out infinite;
 }
 
 .grid {
@@ -141,12 +181,21 @@ h1 {
 }
 
 .playful-panel::before {
-  content: "🐾";
+  content: "🐾 🐾";
   position: absolute;
   top: 14px;
   right: 16px;
-  font-size: 1.4rem;
-  opacity: 0.65;
+  font-size: 1.2rem;
+  opacity: 0.62;
+}
+
+.playful-panel::after {
+  content: "B";
+  position: absolute;
+  inset: auto 16px 12px auto;
+  font-family: "Courier New", monospace;
+  font-size: 1.3rem;
+  color: rgba(255, 95, 135, 0.45);
 }
 
 .panel-label {
@@ -217,11 +266,11 @@ h2 {
 @keyframes kitty-bounce {
   0%,
   100% {
-    transform: translateY(0) rotate(-1.4deg);
+    transform: translateY(0) rotate(-2deg) scale(1);
   }
 
   50% {
-    transform: translateY(-8px) rotate(1.2deg);
+    transform: translateY(-11px) rotate(2deg) scale(1.02);
   }
 }
 
@@ -234,6 +283,27 @@ h2 {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes paw-float {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0.05;
+  }
+
+  20% {
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translateY(-20px) translateX(8px) rotate(8deg);
+    opacity: 0.26;
+  }
+
+  100% {
+    transform: translateY(-40px) translateX(18px) rotate(14deg);
+    opacity: 0.02;
   }
 }
 
