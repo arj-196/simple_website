@@ -1,12 +1,13 @@
 :root {
-  --bg: #f4efe7;
-  --ink: #13212c;
-  --muted: #4b5c66;
-  --panel: rgba(255, 251, 245, 0.82);
-  --line: rgba(19, 33, 44, 0.12);
-  --accent: #f05d23;
-  --accent-soft: #ffd8c8;
-  --shadow: 0 24px 60px rgba(19, 33, 44, 0.12);
+  --bg: #fff8ec;
+  --ink: #2a1f2b;
+  --muted: #6b5d74;
+  --panel: rgba(255, 255, 255, 0.82);
+  --line: rgba(42, 31, 43, 0.14);
+  --accent: #ff7b54;
+  --accent-2: #2bb8a5;
+  --accent-soft: #ffe3bf;
+  --shadow: 0 22px 50px rgba(42, 31, 43, 0.18);
 }
 
 * {
@@ -20,23 +21,30 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Trebuchet MS", "Avenir Next", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at top left, rgba(240, 93, 35, 0.18), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(19, 33, 44, 0.16), transparent 30%),
-    linear-gradient(135deg, #f8f2e9 0%, #ece7df 100%);
+    radial-gradient(circle at 12% 18%, rgba(255, 123, 84, 0.26), transparent 30%),
+    radial-gradient(circle at 86% 76%, rgba(43, 184, 165, 0.2), transparent 34%),
+    linear-gradient(145deg, #fff9ef 0%, #fff1dd 48%, #ffe8da 100%);
 }
 
 .shell {
-  width: min(1080px, calc(100% - 2rem));
+  width: min(1100px, calc(100% - 2rem));
   margin: 0 auto;
-  padding: 4rem 0 5rem;
+  padding: 3rem 0 5rem;
 }
 
 .hero {
-  max-width: 720px;
   margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.3rem;
+  align-items: center;
+}
+
+.hero-text {
+  animation: float-in 650ms ease-out both;
 }
 
 .eyebrow,
@@ -56,17 +64,45 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(2.8rem, 8vw, 5.6rem);
-  line-height: 0.92;
-  letter-spacing: -0.05em;
+  font-size: clamp(2.7rem, 8vw, 5.3rem);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
 }
 
 .intro {
-  max-width: 640px;
-  font-size: 1.05rem;
+  max-width: 60ch;
+  font-size: 1.06rem;
   line-height: 1.7;
   color: var(--muted);
   margin-top: 1.25rem;
+}
+
+.kitty-card {
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background:
+    repeating-linear-gradient(
+      -24deg,
+      rgba(255, 255, 255, 0.72),
+      rgba(255, 255, 255, 0.72) 12px,
+      rgba(255, 227, 191, 0.4) 12px,
+      rgba(255, 227, 191, 0.4) 24px
+    );
+  box-shadow: var(--shadow);
+  padding: 1rem;
+  backdrop-filter: blur(14px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: float-in 650ms ease-out 120ms both;
+}
+
+.kitty {
+  width: min(100%, 280px);
+  border-radius: 24px;
+  border: 2px solid rgba(255, 123, 84, 0.45);
+  box-shadow: 0 15px 36px rgba(255, 123, 84, 0.25);
+  animation: kitty-bounce 2.8s ease-in-out infinite;
 }
 
 .grid {
@@ -92,11 +128,25 @@ h1 {
 .live-panel::after {
   content: "";
   position: absolute;
-  inset: auto -40px -50px auto;
-  width: 180px;
-  height: 180px;
+  inset: auto -30px -40px auto;
+  width: 170px;
+  height: 170px;
   border-radius: 999px;
-  background: radial-gradient(circle, var(--accent-soft), transparent 68%);
+  background: radial-gradient(circle, rgba(43, 184, 165, 0.24), transparent 68%);
+}
+
+.playful-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.playful-panel::before {
+  content: "🐾";
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 1.4rem;
+  opacity: 0.65;
 }
 
 .panel-label {
@@ -129,8 +179,8 @@ h2 {
 .stats div {
   padding: 0.9rem;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.54);
-  border: 1px solid rgba(19, 33, 44, 0.08);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(42, 31, 43, 0.1);
 }
 
 .stat-name {
@@ -162,6 +212,39 @@ h2 {
 .action-list li:first-child {
   border-top: 0;
   padding-top: 0.2rem;
+}
+
+@keyframes kitty-bounce {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.4deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(1.2deg);
+  }
+}
+
+@keyframes float-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .kitty-card {
+    max-width: 360px;
+  }
 }
 
 @media (max-width: 760px) {
