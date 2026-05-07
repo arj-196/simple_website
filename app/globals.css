@@ -117,6 +117,55 @@ h1 {
   margin-top: 1.25rem;
 }
 
+.hero-actions {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.hero-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 0.48rem 0.95rem;
+  font-family: "Courier New", monospace;
+  font-size: 0.77rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+}
+
+.hero-action:hover {
+  transform: translateY(-1px);
+}
+
+.hero-action-primary {
+  background: var(--ink);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 12px 24px rgba(44, 35, 51, 0.25);
+}
+
+.hero-action-primary:hover {
+  background: #1f1825;
+}
+
+.hero-action-secondary {
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--ink);
+}
+
+.hero-action-secondary:hover {
+  background: rgba(255, 255, 255, 0.92);
+}
+
 .kitty-card {
   border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, 0.7);
