@@ -13,35 +13,28 @@ const initialBrief = {
 
 export default function RefreshPanel() {
   const [brief, setBrief] = useState(initialBrief);
+  const [isLoading, setIsLoading] = useState(true);
+
+  async function loadBrief() {
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/content", { cache: "no-store" });
+      const data = await response.json();
+      setBrief(data);
+    } catch (error) {
+      console.error(error);
+      setBrief({
+        ...initialBrief,
+        summary: "Dynamic content could not be loaded."
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
-    let active = true;
-
-    async function loadBrief() {
-      try {
-        const response = await fetch("/api/content", { cache: "no-store" });
-        const data = await response.json();
-
-        if (active) {
-          setBrief(data);
-        }
-      } catch (error) {
-        console.error(error);
-
-        if (active) {
-          setBrief({
-            ...initialBrief,
-            summary: "Dynamic content could not be loaded."
-          });
-        }
-      }
-    }
-
     loadBrief();
-
-    return () => {
-      active = false;
-    };
   }, []);
 
   return (
@@ -49,6 +42,15 @@ export default function RefreshPanel() {
       <p className="panel-label">Live refresh brief</p>
       <h2>{brief.label}</h2>
       <p className="panel-copy">{brief.summary}</p>
+
+      <button
+        type="button"
+        className="refresh-brief-button"
+        onClick={loadBrief}
+        disabled={isLoading}
+      >
+        {isLoading ? "Refreshing..." : "Refresh brief"}
+      </button>
 
       <div className="stats">
         <div>

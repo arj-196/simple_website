@@ -387,3 +387,28 @@ h2 {
     grid-template-columns: 1fr;
   }
 }
+
+.refresh-brief-button {
+  border: 1px solid rgba(44, 35, 51, 0.16);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  border-radius: 999px;
+  font-family: "Courier New", monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.56rem 0.92rem;
+  margin: 0 0 1rem;
+  cursor: pointer;
+  transition: background-color 140ms ease, transform 140ms ease;
+}
+
+.refresh-brief-button:hover:enabled {
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-1px);
+}
+
+.refresh-brief-button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
