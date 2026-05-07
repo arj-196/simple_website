@@ -354,10 +354,20 @@ h2 {
   font-weight: 700;
   color: var(--ink);
   cursor: pointer;
+  transition: background-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
 }
 
 .ttt-cell:hover {
   background: rgba(255, 255, 255, 0.96);
+}
+
+.ttt-cell:disabled {
+  cursor: not-allowed;
+}
+
+.ttt-cell-win {
+  background: rgba(246, 228, 142, 0.9);
+  box-shadow: 0 0 0 2px rgba(186, 133, 43, 0.45);
 }
 
 .ttt-reset {

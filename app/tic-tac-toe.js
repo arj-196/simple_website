@@ -16,7 +16,7 @@ const winLines = [
 function getWinner(cells) {
   for (const [a, b, c] of winLines) {
     if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
-      return cells[a];
+      return { player: cells[a], line: [a, b, c] };
     }
   }
 
@@ -49,7 +49,7 @@ export default function TicTacToe() {
   let status = `Turn: ${isXTurn ? "X" : "O"}`;
 
   if (winner) {
-    status = `Winner: ${winner}`;
+    status = `Winner: ${winner.player}`;
   } else if (isDraw) {
     status = "Draw game";
   }
@@ -58,16 +58,19 @@ export default function TicTacToe() {
     <article className="panel ttt-panel">
       <p className="panel-label">Tic-tac-toe</p>
       <h2>Quick game</h2>
-      <p className="panel-copy ttt-status">{status}</p>
+      <p className="panel-copy ttt-status" role="status" aria-live="polite" aria-atomic="true">
+        {status}
+      </p>
 
       <div className="ttt-board" role="grid" aria-label="Tic tac toe board">
         {cells.map((cell, index) => (
           <button
             key={index}
             type="button"
-            className="ttt-cell"
+            className={`ttt-cell${winner?.line.includes(index) ? " ttt-cell-win" : ""}`}
             onClick={() => handleMove(index)}
             aria-label={`Cell ${index + 1}`}
+            disabled={Boolean(cell || winner || isDraw)}
           >
             {cell}
           </button>
