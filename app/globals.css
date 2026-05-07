@@ -381,6 +381,33 @@ h2 {
   cursor: pointer;
 }
 
+.ttt-scoreboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+.ttt-scoreboard div {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.45rem 0.55rem;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.ttt-scoreboard dt {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.ttt-scoreboard dd {
+  margin: 0.2rem 0 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
 @media (max-width: 900px) {
   .hero,
   .grid {
