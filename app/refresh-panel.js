@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const initialBrief = {
   label: "Loading",
@@ -15,7 +15,7 @@ export default function RefreshPanel() {
   const [brief, setBrief] = useState(initialBrief);
   const [isLoading, setIsLoading] = useState(true);
 
-  async function loadBrief() {
+  const loadBrief = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -31,14 +31,24 @@ export default function RefreshPanel() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, []);
 
   useEffect(() => {
     loadBrief();
-  }, []);
+
+    function handleHeroRefresh() {
+      loadBrief();
+    }
+
+    window.addEventListener("refresh-brief-request", handleHeroRefresh);
+
+    return () => {
+      window.removeEventListener("refresh-brief-request", handleHeroRefresh);
+    };
+  }, [loadBrief]);
 
   return (
-    <article className="panel live-panel">
+    <article id="live-refresh-panel" className="panel live-panel">
       <p className="panel-label">Live refresh brief</p>
       <h2>{brief.label}</h2>
       <p className="panel-copy">{brief.summary}</p>

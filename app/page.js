@@ -1,5 +1,6 @@
 import RefreshPanel from "./refresh-panel";
 import TicTacToe from "./tic-tac-toe";
+import HeroActionBar from "./hero-action-bar";
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
             Welcome to theme B: floating paws, playful gradients, animated kitties,
             and a control desk that feels fun while you ship production updates.
           </p>
+          <HeroActionBar />
         </div>
 
         <div className="kitty-card" aria-hidden="true">
