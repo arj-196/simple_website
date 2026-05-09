@@ -425,6 +425,50 @@ h2 {
   margin-bottom: 1rem;
 }
 
+.ttt-mode {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.95rem 0 0.8rem;
+}
+
+.ttt-mode-button {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.74);
+  color: var(--ink);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.78rem;
+  padding: 0.45rem 0.78rem;
+  cursor: pointer;
+  transition: background-color 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+}
+
+[data-theme="dark"] .ttt-mode-button {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ttt-mode-button:hover {
+  transform: translateY(-1px);
+}
+
+.ttt-mode-button:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(33, 168, 182, 0.24);
+}
+
+.ttt-mode-button-active {
+  background: var(--ink);
+  color: #fff;
+  border-color: transparent;
+}
+
+[data-theme="dark"] .ttt-mode-button-active {
+  background: rgba(255, 255, 255, 0.9);
+  color: #1d1522;
+}
+
 .ttt-board {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
