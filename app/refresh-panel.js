@@ -19,6 +19,7 @@ export default function RefreshPanel() {
   const [refreshHistory, setRefreshHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAutoRefreshEnabled, setIsAutoRefreshEnabled] = useState(true);
+  const [copyState, setCopyState] = useState("idle");
   const [nextRefreshAt, setNextRefreshAt] = useState(() => Date.now() + AUTO_REFRESH_MS);
   const [secondsUntilRefresh, setSecondsUntilRefresh] = useState(() =>
     Math.ceil(AUTO_REFRESH_MS / 1000)
@@ -98,6 +99,39 @@ export default function RefreshPanel() {
     };
   }, [isAutoRefreshEnabled, nextRefreshAt]);
 
+  useEffect(() => {
+    if (copyState === "idle") {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setCopyState("idle");
+    }, 2000);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [copyState]);
+
+  async function copyLatestRun() {
+    if (!navigator?.clipboard?.writeText) {
+      setCopyState("error");
+      return;
+    }
+
+    const runValue = typeof brief.runId === "number" ? `#${brief.runId}` : brief.runId;
+    const textToCopy = [`Run ID: ${runValue}`, `Label: ${brief.label}`, `Summary: ${brief.summary}`]
+      .join("\n");
+
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setCopyState("copied");
+    } catch (error) {
+      console.error(error);
+      setCopyState("error");
+    }
+  }
+
   return (
     <article id="live-refresh-panel" className="panel live-panel">
       <p className="panel-label">Live refresh brief</p>
@@ -119,6 +153,9 @@ export default function RefreshPanel() {
           onClick={() => setIsAutoRefreshEnabled((previous) => !previous)}
         >
           {isAutoRefreshEnabled ? "Pause auto-refresh" : "Resume auto-refresh"}
+        </button>
+        <button type="button" className="refresh-copy-button" onClick={copyLatestRun}>
+          {copyState === "copied" ? "Copied" : "Copy latest run"}
         </button>
       </div>
 
@@ -146,6 +183,10 @@ export default function RefreshPanel() {
         {isAutoRefreshEnabled
           ? `Auto-refresh is on · next refresh in ${secondsUntilRefresh}s.`
           : "Auto-refresh is off."}
+      </p>
+      <p className="timestamp" role="status" aria-live="polite">
+        {copyState === "copied" ? "Latest run copied to clipboard." : ""}
+        {copyState === "error" ? "Clipboard copy is unavailable right now." : ""}
       </p>
 
       {refreshHistory.length > 0 ? (

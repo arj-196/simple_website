@@ -581,7 +581,8 @@ h2 {
 }
 
 .refresh-brief-button,
-.refresh-toggle-button {
+.refresh-toggle-button,
+.refresh-copy-button {
   border: 1px solid rgba(44, 35, 51, 0.16);
   background: rgba(255, 255, 255, 0.72);
   color: var(--ink);
@@ -597,31 +598,36 @@ h2 {
 }
 
 .refresh-brief-button:hover:enabled,
-.refresh-toggle-button:hover:enabled {
+.refresh-toggle-button:hover:enabled,
+.refresh-copy-button:hover:enabled {
   background: rgba(255, 255, 255, 0.92);
   transform: translateY(-1px);
 }
 
 [data-theme="dark"] .refresh-brief-button,
-[data-theme="dark"] .refresh-toggle-button {
+[data-theme="dark"] .refresh-toggle-button,
+[data-theme="dark"] .refresh-copy-button {
   border-color: var(--line);
   background: rgba(255, 255, 255, 0.12);
 }
 
 [data-theme="dark"] .refresh-brief-button:hover:enabled,
-[data-theme="dark"] .refresh-toggle-button:hover:enabled {
+[data-theme="dark"] .refresh-toggle-button:hover:enabled,
+[data-theme="dark"] .refresh-copy-button:hover:enabled {
   background: rgba(255, 255, 255, 0.2);
 }
 
 .refresh-brief-button:focus-visible,
-.refresh-toggle-button:focus-visible {
+.refresh-toggle-button:focus-visible,
+.refresh-copy-button:focus-visible {
   outline: 2px solid var(--accent-2);
   outline-offset: 2px;
   box-shadow: 0 0 0 4px rgba(33, 168, 182, 0.28);
 }
 
 .refresh-brief-button:disabled,
-.refresh-toggle-button:disabled {
+.refresh-toggle-button:disabled,
+.refresh-copy-button:disabled {
   opacity: 0.65;
   cursor: wait;
 }
