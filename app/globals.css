@@ -1,5 +1,6 @@
 :root {
   --ink: #2c2333;
+  --ink-soft: #75648a;
   --muted: #6d5a7d;
   --panel: rgba(255, 255, 255, 0.78);
   --line: rgba(44, 35, 51, 0.12);
@@ -7,6 +8,15 @@
   --accent-2: #21a8b6;
   --accent-3: #ffcf5c;
   --shadow: 0 26px 60px rgba(44, 35, 51, 0.2);
+}
+
+[data-theme="dark"] {
+  --ink: #f8e9f5;
+  --ink-soft: #d7c5df;
+  --muted: #c2aacd;
+  --panel: rgba(36, 24, 43, 0.76);
+  --line: rgba(255, 229, 245, 0.2);
+  --shadow: 0 26px 60px rgba(5, 2, 10, 0.58);
 }
 
 * {
@@ -28,6 +38,15 @@ body {
     radial-gradient(circle at 28% 84%, rgba(255, 207, 92, 0.25), transparent 28%),
     linear-gradient(145deg, #fff6e7 0%, #ffeaf1 45%, #e8f9fb 100%);
   background-size: cover;
+  transition: background 220ms ease, color 220ms ease;
+}
+
+[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(255, 95, 135, 0.22), transparent 34%),
+    radial-gradient(circle at 83% 22%, rgba(33, 168, 182, 0.2), transparent 30%),
+    radial-gradient(circle at 28% 84%, rgba(255, 207, 92, 0.2), transparent 28%),
+    linear-gradient(145deg, #1b1220 0%, #28172e 45%, #102429 100%);
 }
 
 .shell {
@@ -172,6 +191,14 @@ h1 {
   background: rgba(255, 255, 255, 0.92);
 }
 
+[data-theme="dark"] .hero-action-secondary {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .hero-action-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .kitty-card {
   border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, 0.7);
@@ -285,6 +312,10 @@ h2 {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.65);
   border: 1px solid rgba(42, 31, 43, 0.1);
+}
+
+[data-theme="dark"] .stats div {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .stat-name {
@@ -416,6 +447,14 @@ h2 {
   background: rgba(255, 255, 255, 0.96);
 }
 
+[data-theme="dark"] .ttt-cell {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .ttt-cell:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
 .ttt-cell:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -442,6 +481,10 @@ h2 {
   cursor: pointer;
 }
 
+[data-theme="dark"] .ttt-reset {
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .ttt-actions {
   display: flex;
   gap: 0.6rem;
@@ -460,6 +503,10 @@ h2 {
   border-radius: 12px;
   padding: 0.45rem 0.55rem;
   background: rgba(255, 255, 255, 0.72);
+}
+
+[data-theme="dark"] .ttt-scoreboard div {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .ttt-scoreboard dt {
@@ -500,6 +547,15 @@ h2 {
 .refresh-brief-button:hover:enabled {
   background: rgba(255, 255, 255, 0.92);
   transform: translateY(-1px);
+}
+
+[data-theme="dark"] .refresh-brief-button {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .refresh-brief-button:hover:enabled {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .refresh-brief-button:focus-visible {
