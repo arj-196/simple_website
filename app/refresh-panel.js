@@ -18,6 +18,11 @@ export default function RefreshPanel() {
   const [brief, setBrief] = useState(initialBrief);
   const [refreshHistory, setRefreshHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAutoRefreshEnabled, setIsAutoRefreshEnabled] = useState(true);
+  const [nextRefreshAt, setNextRefreshAt] = useState(() => Date.now() + AUTO_REFRESH_MS);
+  const [secondsUntilRefresh, setSecondsUntilRefresh] = useState(() =>
+    Math.ceil(AUTO_REFRESH_MS / 1000)
+  );
 
   const loadBrief = useCallback(async () => {
     setIsLoading(true);
@@ -52,13 +57,46 @@ export default function RefreshPanel() {
     }
 
     window.addEventListener("refresh-brief-request", handleHeroRefresh);
-    const autoRefreshTimer = window.setInterval(loadBrief, AUTO_REFRESH_MS);
 
     return () => {
       window.removeEventListener("refresh-brief-request", handleHeroRefresh);
-      window.clearInterval(autoRefreshTimer);
     };
   }, [loadBrief]);
+
+  useEffect(() => {
+    if (!isAutoRefreshEnabled) {
+      return;
+    }
+
+    setNextRefreshAt(Date.now() + AUTO_REFRESH_MS);
+
+    const autoRefreshTimer = window.setInterval(() => {
+      setNextRefreshAt(Date.now() + AUTO_REFRESH_MS);
+      loadBrief();
+    }, AUTO_REFRESH_MS);
+
+    return () => {
+      window.clearInterval(autoRefreshTimer);
+    };
+  }, [isAutoRefreshEnabled, loadBrief]);
+
+  useEffect(() => {
+    if (!isAutoRefreshEnabled) {
+      return;
+    }
+
+    function updateCountdown() {
+      const msRemaining = Math.max(0, nextRefreshAt - Date.now());
+      setSecondsUntilRefresh(Math.ceil(msRemaining / 1000));
+    }
+
+    updateCountdown();
+    const countdownTimer = window.setInterval(updateCountdown, 250);
+
+    return () => {
+      window.clearInterval(countdownTimer);
+    };
+  }, [isAutoRefreshEnabled, nextRefreshAt]);
 
   return (
     <article id="live-refresh-panel" className="panel live-panel">
@@ -66,14 +104,23 @@ export default function RefreshPanel() {
       <h2>{brief.label}</h2>
       <p className="panel-copy">{brief.summary}</p>
 
-      <button
-        type="button"
-        className="refresh-brief-button"
-        onClick={loadBrief}
-        disabled={isLoading}
-      >
-        {isLoading ? "Refreshing..." : "Refresh brief"}
-      </button>
+      <div className="refresh-controls">
+        <button
+          type="button"
+          className="refresh-brief-button"
+          onClick={loadBrief}
+          disabled={isLoading}
+        >
+          {isLoading ? "Refreshing..." : "Refresh brief"}
+        </button>
+        <button
+          type="button"
+          className={`refresh-toggle-button ${isAutoRefreshEnabled ? "is-on" : "is-off"}`}
+          onClick={() => setIsAutoRefreshEnabled((previous) => !previous)}
+        >
+          {isAutoRefreshEnabled ? "Pause auto-refresh" : "Resume auto-refresh"}
+        </button>
+      </div>
 
       <div className="stats">
         <div>
@@ -95,7 +142,11 @@ export default function RefreshPanel() {
           ? `Last refresh: ${new Date(brief.timestamp).toLocaleString()}`
           : ""}
       </p>
-      <p className="timestamp">Auto-refresh every 25 seconds.</p>
+      <p className="timestamp">
+        {isAutoRefreshEnabled
+          ? `Auto-refresh is on · next refresh in ${secondsUntilRefresh}s.`
+          : "Auto-refresh is off."}
+      </p>
 
       {refreshHistory.length > 0 ? (
         <div className="refresh-history" aria-live="polite">
