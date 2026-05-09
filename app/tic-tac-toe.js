@@ -26,9 +26,10 @@ function getWinner(cells) {
 }
 
 export default function TicTacToe() {
+  const emptyScore = { xWins: 0, oWins: 0, draws: 0 };
   const [cells, setCells] = useState(Array(9).fill(null));
   const [isXTurn, setIsXTurn] = useState(true);
-  const [score, setScore] = useState({ xWins: 0, oWins: 0, draws: 0 });
+  const [score, setScore] = useState(emptyScore);
   const [resultRecorded, setResultRecorded] = useState(false);
 
   const winner = useMemo(() => getWinner(cells), [cells]);
@@ -100,6 +101,16 @@ export default function TicTacToe() {
     setResultRecorded(false);
   }
 
+  function resetScoreboard() {
+    setScore(emptyScore);
+
+    try {
+      localStorage.removeItem(scoreStorageKey);
+    } catch {
+      // Ignore storage errors and still reset in-memory score.
+    }
+  }
+
   let status = `Turn: ${isXTurn ? "X" : "O"}`;
 
   if (winner) {
@@ -146,9 +157,14 @@ export default function TicTacToe() {
         </div>
       </dl>
 
-      <button type="button" className="ttt-reset" onClick={resetGame}>
-        Reset game
-      </button>
+      <div className="ttt-actions">
+        <button type="button" className="ttt-reset" onClick={resetGame}>
+          Reset game
+        </button>
+        <button type="button" className="ttt-reset" onClick={resetScoreboard}>
+          Reset scoreboard
+        </button>
+      </div>
     </article>
   );
 }

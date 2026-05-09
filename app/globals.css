@@ -430,6 +430,12 @@ h2 {
   cursor: pointer;
 }
 
+.ttt-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
 .ttt-scoreboard {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
