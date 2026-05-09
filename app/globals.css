@@ -568,3 +568,43 @@ h2 {
   opacity: 0.65;
   cursor: wait;
 }
+
+.refresh-history {
+  margin-top: 1rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.8rem;
+}
+
+.history-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-family: "Courier New", monospace;
+}
+
+.refresh-history-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.34rem;
+}
+
+.refresh-history-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.history-time {
+  font-family: "Courier New", monospace;
+  color: var(--ink-soft);
+}
+
+.history-text {
+  min-width: 0;
+}
