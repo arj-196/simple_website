@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+const AUTO_REFRESH_MS = 25000;
+
 const initialBrief = {
   label: "Loading",
   summary: "Fetching dynamic content...",
@@ -41,9 +43,11 @@ export default function RefreshPanel() {
     }
 
     window.addEventListener("refresh-brief-request", handleHeroRefresh);
+    const autoRefreshTimer = window.setInterval(loadBrief, AUTO_REFRESH_MS);
 
     return () => {
       window.removeEventListener("refresh-brief-request", handleHeroRefresh);
+      window.clearInterval(autoRefreshTimer);
     };
   }, [loadBrief]);
 
@@ -82,6 +86,7 @@ export default function RefreshPanel() {
           ? `Last refresh: ${new Date(brief.timestamp).toLocaleString()}`
           : ""}
       </p>
+      <p className="timestamp">Auto-refresh every 25 seconds.</p>
     </article>
   );
 }
