@@ -70,6 +70,22 @@ body {
   animation: paw-float 8s linear infinite;
 }
 
+[data-motion="reduce"] .paw-stream span,
+[data-motion="reduce"] .hero-text,
+[data-motion="reduce"] .kitty-card,
+[data-motion="reduce"] .kitty {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paw-stream span,
+  .hero-text,
+  .kitty-card,
+  .kitty {
+    animation: none !important;
+  }
+}
+
 .paw-stream span:nth-child(1) {
   left: 8%;
   top: 14%;
