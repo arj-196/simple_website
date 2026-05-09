@@ -25,15 +25,30 @@ function getWinner(cells) {
   return null;
 }
 
+function getKittyMove(cells) {
+  const emptyCells = cells
+    .map((cell, index) => (cell === null ? index : null))
+    .filter((index) => index !== null);
+
+  if (emptyCells.length === 0) {
+    return null;
+  }
+
+  const randomIndex = Math.floor(Math.random() * emptyCells.length);
+  return emptyCells[randomIndex];
+}
+
 export default function TicTacToe() {
   const emptyScore = { xWins: 0, oWins: 0, draws: 0 };
   const [cells, setCells] = useState(Array(9).fill(null));
   const [isXTurn, setIsXTurn] = useState(true);
   const [score, setScore] = useState(emptyScore);
   const [resultRecorded, setResultRecorded] = useState(false);
+  const [mode, setMode] = useState("human");
 
   const winner = useMemo(() => getWinner(cells), [cells]);
   const isDraw = !winner && cells.every((cell) => cell !== null);
+  const isKittyMode = mode === "kitty";
 
   useEffect(() => {
     try {
@@ -84,8 +99,32 @@ export default function TicTacToe() {
     setResultRecorded(true);
   }, [winner, isDraw, resultRecorded]);
 
+  useEffect(() => {
+    if (!isKittyMode || isXTurn || winner || isDraw) {
+      return;
+    }
+
+    const timerId = setTimeout(() => {
+      setCells((currentCells) => {
+        const kittyMove = getKittyMove(currentCells);
+
+        if (kittyMove === null) {
+          return currentCells;
+        }
+
+        const nextCells = [...currentCells];
+        nextCells[kittyMove] = "O";
+        return nextCells;
+      });
+
+      setIsXTurn(true);
+    }, 350);
+
+    return () => clearTimeout(timerId);
+  }, [isKittyMode, isXTurn, winner, isDraw]);
+
   function handleMove(index) {
-    if (cells[index] || winner) {
+    if (cells[index] || winner || isDraw || (isKittyMode && !isXTurn)) {
       return;
     }
 
@@ -111,10 +150,19 @@ export default function TicTacToe() {
     }
   }
 
-  let status = `Turn: ${isXTurn ? "X" : "O"}`;
+  function changeMode(nextMode) {
+    setMode(nextMode);
+    resetGame();
+  }
+
+  let status = `Turn: ${isXTurn ? "X" : isKittyMode ? "Kitty bot (O)" : "O"}`;
 
   if (winner) {
-    status = `Winner: ${winner.player}`;
+    if (winner.player === "O" && isKittyMode) {
+      status = "Winner: Kitty bot";
+    } else {
+      status = `Winner: ${winner.player}`;
+    }
   } else if (isDraw) {
     status = "Draw game";
   }
@@ -123,6 +171,26 @@ export default function TicTacToe() {
     <article className="panel ttt-panel">
       <p className="panel-label">Tic-tac-toe</p>
       <h2>Quick game</h2>
+
+      <div className="ttt-mode" role="group" aria-label="Game mode">
+        <button
+          type="button"
+          className={`ttt-mode-button${!isKittyMode ? " ttt-mode-button-active" : ""}`}
+          onClick={() => changeMode("human")}
+          aria-pressed={!isKittyMode}
+        >
+          2 players
+        </button>
+        <button
+          type="button"
+          className={`ttt-mode-button${isKittyMode ? " ttt-mode-button-active" : ""}`}
+          onClick={() => changeMode("kitty")}
+          aria-pressed={isKittyMode}
+        >
+          Play against kitty bot
+        </button>
+      </div>
+
       <p className="panel-copy ttt-status" role="status" aria-live="polite" aria-atomic="true">
         {status}
       </p>
@@ -135,7 +203,7 @@ export default function TicTacToe() {
             className={`ttt-cell${winner?.line.includes(index) ? " ttt-cell-win" : ""}`}
             onClick={() => handleMove(index)}
             aria-label={`Cell ${index + 1}`}
-            disabled={Boolean(cell || winner || isDraw)}
+            disabled={Boolean(cell || winner || isDraw || (isKittyMode && !isXTurn))}
           >
             {cell}
           </button>
@@ -144,11 +212,11 @@ export default function TicTacToe() {
 
       <dl className="ttt-scoreboard" aria-label="Score tracker">
         <div>
-          <dt>X wins</dt>
+          <dt>{isKittyMode ? "You (X) wins" : "X wins"}</dt>
           <dd>{score.xWins}</dd>
         </div>
         <div>
-          <dt>O wins</dt>
+          <dt>{isKittyMode ? "Kitty bot wins" : "O wins"}</dt>
           <dd>{score.oWins}</dd>
         </div>
         <div>
